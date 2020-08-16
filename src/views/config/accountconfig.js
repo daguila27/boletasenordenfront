@@ -1,18 +1,11 @@
 /*cuadro de información referente a empresa - se puede ver en New Mockup 3*/
-import React, {useState, useCallback, useEffect} from 'react';
+import React from 'react';
 import perfil from '../../perfil.jpg';
-import axios from "axios";
-
-
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,30 +68,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const MyAccount = props => {
+const MyAccount = () => {
     const classes = useStyles();
-    const [datos, setUserData] = useState({});
-    //const iduser = props.match.params.iduser;
-    const iduser = 1;
-
-    const mycompany = useCallback(
-        async ({email, idusuario}) => {
-            try {
-                const dataMyCompanyResponse = await axios.post(process.env.REACT_APP_BACKEND_URL+`/company/getData`,
-                    {idusuario: iduser});
-
-                if(!dataMyCompanyResponse.data.err){
-                    //LOS DATOS SE OBTIENEN EXITOSAMENTE
-                    setUserData(dataMyCompanyResponse.data.datos);
-                }else{
-                    //HA OCURRIDO UN ERROR AL OBTENER LOS DATOS
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        , []
-    );
 
     //SE USA PARA EJECUTAR UNA FUNCION CADA VEZ QUE ALGO CAMBIE EN MI DEPENDENCIA
     //AYUDA A QUE LA OBTENCIÓN DE INFORMACIÓN SE HAGA SOLO AL INGRESAR POR PRIMERA VEZ

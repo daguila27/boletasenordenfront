@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import MaterialTable from 'material-table';
 //import MaterialUiIcons from 'material-ui-icons';
 import axios from "axios";
@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 
-const MaterialTableEmployee = (props) => {
+const MaterialTableEmployee = () => {
     const idcompany = 1;
     /**
      * RowDataPacket {

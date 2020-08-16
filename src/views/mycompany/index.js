@@ -1,12 +1,9 @@
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 import MyCompany from './mycompany.js';
 import Companygraph from './companygraph.js';
 import EmployeeCostTable from './employeeCostTable.js';
 
-import ModalRole from './role/modal_role.js';
-import ModalCategorie from './categories/modal_categorie.js';
 import MenuSup from "../menu/menusup";
-import axios from "axios";
 
 const CompanyView = (props) => {
     const iduser = props.match.params.iduser;

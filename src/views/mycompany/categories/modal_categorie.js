@@ -1,5 +1,5 @@
 /*cuadro de información referente a empresa - se puede ver en New Mockup 3*/
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
@@ -63,7 +63,6 @@ const ModalCategorie = (props) => {
     const {
         idCompany,
         buttonLabel,
-        className,
         idroles
     } = props;
     const classes = useStyles();
@@ -83,6 +82,7 @@ const ModalCategorie = (props) => {
 
     const onStart = useCallback( () => {
         setLoad(true);
+        if(load === true){alert("Cargando ...");}
     });
     const onSuccess = useCallback( (msg) => {
         setLoad(false);
@@ -93,7 +93,7 @@ const ModalCategorie = (props) => {
     const onFailed = useCallback( (msg) => {
         setLoad(false);
         setError(true);
-        alert(msg);
+        if(error===true){alert(msg);}
     });
 
     const [formCategorie, setFormCategorie] = useState({

@@ -32,7 +32,7 @@ const Roles = (props) => {
 
     return (
         <>
-            {rolesData.map((value, index) => {
+            {rolesData.map((value) => {
                 return <span
                     key={value.idRol}
                     className="badge badge-pill badge-success rolLabel"

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const PanelAppend = (props) => {
     let {
@@ -25,7 +25,7 @@ const PanelAppend = (props) => {
         setList( labelList.concat([parseInt(id)]) );
 
         //SE QUITA EL ROL DE LA LISTA SUPERIOR
-        setListAdd( labelListAdd.filter(( item , index) => {return item.id !== id}) );
+        setListAdd( labelListAdd.filter(( item ) => {return item.id !== id}) );
     };
     //IMPORTANTE para actualizar labelList al recibir el parametro iditems en props.
     useEffect(() => {setList(dataList)}, [dataList]);

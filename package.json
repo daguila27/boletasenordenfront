@@ -31,7 +31,7 @@
     ],
     "parser": "babel-eslint",
     "rules": {
-      "no-unused-vars": "off",
+      "no-unused-vars": "error",
       "react/prop-types": "off"
     }
   },

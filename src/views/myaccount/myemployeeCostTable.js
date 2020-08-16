@@ -1,9 +1,9 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import MaterialTable from 'material-table';
 
 
 
-const MyMaterialTableEmployee = (props) => {
+const MyMaterialTableEmployee = () => {
     const [state, setState] = React.useState({
         columns: [
             { title: 'Name', field: 'name' },

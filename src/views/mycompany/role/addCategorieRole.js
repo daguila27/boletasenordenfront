@@ -1,11 +1,9 @@
 /*cuadro de información referente a empresa - se puede ver en New Mockup 3*/
-import React, {useState, useCallback, useEffect} from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import styles from '../../../css/styles.css';
+import React from 'react';
 
 //formulario para adjuntar roles a categorias y viceversa
 //recibe una lista de objetos {nombre: 'categoria/role', id: idcategoria/idrole}
-const AddCategorieRole = (props) => {
+const AddCategorieRole = () => {
     return (
         <div>
             <div style={{border: "1px solid black", minHeight: 10}}></div>

@@ -1,25 +1,11 @@
 /*cuadro de información referente a empresa - se puede ver en New Mockup 3*/
-import React, {useState, useCallback, useEffect} from 'react';
-import perfil from '../../perfil.jpg';
-import useForm from "./useFormNewExpensive.js";
-
-import upicon from '../../cloud-up-icon.png'
 import axios from "axios";
-
-
-
+import React, {useState, useCallback, useEffect} from 'react';
+import useForm from "./useFormNewExpensive.js";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-
 import FileDrop from './FileDrop';
-
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import useLogin from "../login/useLogin";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -74,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const MyAccount = (props) => {
+const MyAccount = () => {
     const classes = useStyles();
     const [dataCategories, setCategoriesData] = useState([]);
     //const iduser = props.match.params.iduser;
@@ -111,6 +97,7 @@ const MyAccount = (props) => {
 
     const onStart = useCallback( () => {
         setLoad(true);
+        if(load===true){alert("Cargando ...");}
     });
     const onSuccess = useCallback( (msg) => {
         setLoad(false);
@@ -121,7 +108,7 @@ const MyAccount = (props) => {
     const onFailed = useCallback( (msg) => {
         setLoad(false);
         setError(true);
-        alert(msg);
+        if(error===true){alert(msg);}
     });
 
     const [form, setForm] = useState({
@@ -132,33 +119,7 @@ const MyAccount = (props) => {
         idusuario: iduser,
         image: null
     });
-    const [file, setFile] = useState(null);
 
-    function previewFile(value) {
-        setForm({
-                descripcion: form.descripcion,
-                valor: form.valor,
-                idcategoria: form.idcategoria,
-                idrol: form.idrol,
-                idusuario: form.idusuario,
-                image: value
-        });
-        alert("preview image");
-        var preview = document.querySelector('img');
-        var file    = document.querySelector('input[type=file]').files[0];
-        var reader  = new FileReader();
-
-        reader.onloadend = function () {
-            setFile(reader.result);
-            preview.src = reader.result;
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-        } else {
-            preview.src = "";
-        }
-    }
 
 
 
@@ -233,7 +194,7 @@ const MyAccount = (props) => {
                                     })}
                                     style={{maxWidth: '80%'}}>
                                 {dataCategories.map((value, index) => {
-                                    return <option value={value.idCategoria}>{value.nombre}</option>
+                                    return <option key={`cat-option-${index}`} value={value.idCategoria}>{value.nombre}</option>
                                 })}
                             </select>
                         </label>

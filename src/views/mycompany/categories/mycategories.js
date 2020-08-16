@@ -29,7 +29,7 @@ const Categories = (props) => {
     useEffect(() => { mycategories({idcategories: idcategories}) }, [mycategories] );
     return (
         <>
-            {categoriesData.map((value, index) => {
+            {categoriesData.map((value) => {
                 return <span
                     key={value.idCategoria}
                     className="badge badge-pill badge-success"

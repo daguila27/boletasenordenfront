@@ -4,7 +4,6 @@ import logo from '../../logoprueba.png';
 import axios from "axios";
 import Roles from './role/myroles.js';
 import Categories from './categories/mycategories.js';
-import MenuSup from "../menu/menusup";
 import ModalRole from "./role/modal_role";
 import ModalCategorie from "./categories/modal_categorie";
 
@@ -12,11 +11,9 @@ import ModalCategorie from "./categories/modal_categorie";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 
@@ -60,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const MyCompany = (props) => {
+const MyCompany = () => {
     const classes = useStyles();
     const [dataCompany, setCompanyData] = useState({});
     const [rolList, setRolList] = useState([]);

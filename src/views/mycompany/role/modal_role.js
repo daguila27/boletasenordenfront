@@ -1,15 +1,13 @@
 /*cuadro de información referente a empresa - se puede ver en New Mockup 3*/
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 import Backdrop from '@material-ui/core/Backdrop';
 
-import style from '../../../css/styles.css';
 import Grid from "@material-ui/core/Grid";
 import Categories from "../categories/mycategories";
-import Roles from "./myroles";
 import PanelAppend from "../panelAppend.js";
 import useformRole from "../role/useFormNewRole";
 
@@ -69,7 +67,6 @@ const ModalRole = (props) => {
     const {
         idCompany,
         buttonLabel,
-        className,
         idcategories
     } = props;
 
@@ -91,6 +88,7 @@ const ModalRole = (props) => {
 
     const onStart = useCallback( () => {
         setLoad(true);
+        if(load === true){alert("Cargando ...");}
     });
     const onSuccess = useCallback( (msg) => {
         setLoad(false);
@@ -101,7 +99,7 @@ const ModalRole = (props) => {
     const onFailed = useCallback( (msg) => {
         setLoad(false);
         setError(true);
-        alert(msg);
+        if(error === true){alert(msg);}
     });
 
     const [formRole, setFormRole] = useState({

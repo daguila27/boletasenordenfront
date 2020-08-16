@@ -1,5 +1,5 @@
 /*cuadro de grafico - se puede ver en New Mockup 3*/
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 
 import { Bar } from 'react-chartjs-2';
 

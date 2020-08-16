@@ -1,6 +1,5 @@
 import React, {useState, useCallback} from 'react';
 import useLogin from "./useLogin.js";
-import MyCompany from '../mycompany/mycompany.js';
 
 
 
@@ -9,8 +8,8 @@ const Login = () => {
         email: '',
         password: '',
     });
-    const [error, setError] = useState(null);
-    const [load, setLoad] = useState(null);
+    //const [error, setError] = useState(null);
+    //const [load, setLoad] = useState(null);
 
     const onStart = useCallback(() => {
           setLoad(true);
