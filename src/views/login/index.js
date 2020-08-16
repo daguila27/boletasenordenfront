@@ -12,21 +12,21 @@ const Login = () => {
     const [error, setError] = useState(null);
     const [load, setLoad] = useState(null);
 
-    const onStart = useCallback( () => {
+    const onStart = useCallback(() => {
           setLoad(true);
-    });
+    },[]);
     const onSuccess = useCallback( (iduser) => {
         setLoad(false);
         setError(false);
         //redireccionar a vista principal
         window.location.href = `/mycompany/${iduser}`;
-    });
+    }, []);
     const onFailed = useCallback( () => {
         setLoad(false);
         setError(true);
         //redireccionar a vista de error Login
         window.location.href = "/login";
-    });
+    }, []);
 
 
 
