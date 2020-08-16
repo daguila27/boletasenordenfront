@@ -1,0 +1,111 @@
+version: 2.1
+
+orbs:
+  aws-s3: circleci/aws-s3@1.0.15
+  dotenv: anilanar/dotenv@1.0.0
+
+
+executors:
+  node:
+    docker:
+      - image: circleci/node:10.19
+
+jobs:
+  build:
+    parameters:
+      environment:
+        type: string
+    executor: node
+    working_directory: ~/boletas-en-orden
+    steps:
+      - checkout:
+          path: ~/boletas-en-orden    # Restore local dependencies from cache
+      - restore_cache:
+          keys:
+            - dependencies-{{ checksum "package.json" }}
+            - dependencies-
+      # Load .env
+      - dotenv/source:
+          path: .env.<< parameters.environment >>
+      # Install dependencies
+      - run:
+          name: Install local dependencies
+          command: yarn install
+
+      # Cache local dependencies
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      # Build
+      - run:
+          name: Build Application
+          command: yarn build
+
+      # Save Cache
+      - save_cache:
+          key: boletas-en-orden-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - build
+  deploy-web:
+    parameters:
+      bucket_name:
+        type: string
+      distribution_id:
+        type: string
+
+    executor: node
+    working_directory: ~/boletas-en-orden
+    steps:
+      - attach_workspace:
+          at: ~/boletas-en-orden
+      - run:
+          name: Check project folder
+          command: ls
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      # Restore cache
+      - restore_cache:
+          key: boletas-en-orden-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+      # Deploy to s3
+      - aws-s3/sync:
+          from: build
+          to: s3://<< parameters.bucket_name >>
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400" \
+            --delete
+          overwrite: true
+      - run:
+          name: Create invalidation
+          command: aws cloudfront create-invalidation --distribution-id << parameters.distribution_id >> --paths /\*;
+workflows:
+  version: 2
+  web:
+    jobs:
+      - build:
+          name: web-build-prod
+          environment: production
+          filters:
+            branches:
+              only:
+                - master
+      - build:
+          name: web-build-dev
+          environment: development
+          filters:
+            branches:
+              only:
+                - dev
+      - deploy-web:
+          name: web-deploy-prod
+          bucket_name: boletas-front
+          distribution_id: E3BLGHAR14NJSO
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - web-build-prod
