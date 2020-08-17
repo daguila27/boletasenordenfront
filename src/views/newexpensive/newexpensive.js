@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 const MyAccount = () => {
     const classes = useStyles();
     const [dataCategories, setCategoriesData] = useState([]);
+    const [file, setFile] = useState(null)
     //const iduser = props.match.params.iduser;
     const iduser = 1;
     const idrol = 3;
@@ -75,12 +76,8 @@ const MyAccount = () => {
                 if(!dataMyCategories.data.err){
                     //LOS DATOS SE OBTIENEN EXITOSAMENTE
                     setForm({
-                        descripcion: form.descripcion,
-                        valor: form.valor,
+                        ...form,
                         idcategoria: dataMyCategories.data.datos[0].idCategoria,
-                        idrol: form.idrol,
-                        idusuario: form.idusuario,
-                        image: form.image
                     });
                     setCategoriesData(dataMyCategories.data.datos);
                 }else{
@@ -131,27 +128,20 @@ const MyAccount = () => {
 
     const submitForm = useForm({onStartLogin: onStart, onError: onFailed, onSuccess: onSuccess});
 
-    const onSubmit = useCallback( (ev) => {
-        ev.preventDefault();
-        alert(file);
-        setForm({
-            descripcion: form.descripcion,
-            valor: form.valor,
-            idcategoria: form.sidcategoria,
-            idrol: form.idrol,
-            idusuario: form.idusuario,
-            image: form.image
-        });
-
+    const submit = (e) => {
+        e.preventDefault()
+        onSubmit(form)
+    }
+    const onSubmit = useCallback( (form) => {
         submitForm(form, file);
-    });
+    }, [submitForm]);
 
     return (
         <div style={{display: 'flex',   flexDirection: 'column', alignSelf: 'center', width: "100%"}}>
             <h3 style={{width: '50%', padding:0, alignSelf: 'center', alignContent: 'flex-start', display: 'flex'}}>Registrar Gasto : </h3>
             <Card style={{width: '50%', alignSelf: 'center'}}>
                 <CardContent>
-                    <form id={"formExpensive"} onSubmit={onSubmit}>
+                    <form id={"formExpensive"} onSubmit={submit}>
                         <label className={classes.parInput}>
                             Detalle su Gasto :
                             <input className={'form-control'} type='text' name='descripcion'
@@ -201,15 +191,8 @@ const MyAccount = () => {
                         <div style={{'border': '1px dashed black', 'borderRadius': '1%'}}>
                             <FileDrop id={'inputFile'} name="inputFile"
                                       value={form.image}
-                                      onChange={({target: {value}}) => {
-                                          setForm({
-                                              descripcion: form.descripcion,
-                                              valor: form.valor,
-                                              idcategoria: form.idcategoria,
-                                              idrol: form.idrol,
-                                              idusuario: form.idusuario,
-                                              image: value
-                                          });
+                                      onFilesAddedCb={(file) => {
+                                          setFile(file)
                                       }}
                                       type="file"/>
                         </div>
