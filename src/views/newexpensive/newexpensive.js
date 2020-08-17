@@ -137,7 +137,7 @@ const MyAccount = () => {
         setForm({
             descripcion: form.descripcion,
             valor: form.valor,
-            idcategoria: form.idcategoria,
+            idcategoria: form.sidcategoria,
             idrol: form.idrol,
             idusuario: form.idusuario,
             image: form.image
