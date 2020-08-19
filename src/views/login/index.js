@@ -8,15 +8,17 @@ const Login = () => {
         email: '',
         password: '',
     });
-    //const [error, setError] = useState(null);
-    //const [load, setLoad] = useState(null);
+    const [error, setError] = useState(null);
+    const [load, setLoad] = useState(null);
 
     const onStart = useCallback(() => {
           setLoad(true);
+          if(load){alert("Cargando ...");}
     },[]);
     const onSuccess = useCallback( (iduser) => {
         setLoad(false);
         setError(false);
+        if(error){alert("Error");}
         //redireccionar a vista principal
         window.location.href = `/mycompany/${iduser}`;
     }, []);
